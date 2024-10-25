@@ -53,7 +53,7 @@ icecream = IceCream("Pistachio", 2, .79)
 vanilla = Sundae("Vanilla", 3, .69, "Hot Fudge", 1.29)
 oatmeal_rasin = Cookie("Oatmeal Raisin", 2, 3.45)
 
-"""stuff = []
+stuff = []
 while True:
     order = input("What would you like to order? (Type: 'cookie', 'candy', 'icecream', or 'sundae')\n")
     if order == "cookie":
@@ -67,7 +67,11 @@ while True:
             stuff.append(chocolate_chip.name)
         if cookie == "nevermind":
             continue
-    """
-
-
+    if order == "candy":
+        print(f"We have {candy_corn.name} and {gummy_bear.name}s.")
+        candy = input("What candy would you like? (Type: 'corn' or 'bear' or 'nevermind')\n")
+        if candy == "corn":
+            print("Here's your candy corn.")
+            stuff.append(candy_corn.name)
+        if candy == 
 
