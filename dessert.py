@@ -45,23 +45,38 @@ class Sundae(IceCream):
         return self.topping_name
     def get_topping_price(self):
         return self.topping_price
-
-candy_corn = Candy("Candy Corn", 1.5, .25)
-gummy_bear = Candy("Gummy Bears", .25, .35)
-chocolate_chip = Cookie("Chocolate Chip", 6, 3.99)
-icecream = IceCream("Pistachio", 2, .79)
-vanilla = Sundae("Vanilla", 3, .69, "Hot Fudge", 1.29)
-oatmeal_rasin = Cookie("Oatmeal Raisin", 2, 3.45)
-
-
-class Order:
-    stuff = [candy_corn.name, gummy_bear.name, chocolate_chip.name, icecream.name, vanilla.name, oatmeal_rasin.name]
+        
+def main():
+    stuff = []
+    candy_corn = Candy("Candy Corn", 1.5, .25)
+    gummy_bear = Candy("Gummy Bears", .25, .35)
+    chocolate_chip = Cookie("Chocolate Chip", 6, 3.99)
+    icecream = IceCream("Pistachio", 2, .79)
+    vanilla = Sundae("Vanilla", 3, .69, "Hot Fudge", 1.29)
+    oatmeal_rasin = Cookie("Oatmeal Raisin", 2, 3.45)
+    
+    can_order = [
+    candy_corn,
+    gummy_bear,
+    chocolate_chip,
+    icecream,
+    vanilla,
+    oatmeal_rasin
+    ]
+    stuff.append(candy_corn.name)
+    stuff.append(gummy_bear.name)
+    stuff.append(chocolate_chip.name) 
+    stuff.append(icecream.name)
+    stuff.append(vanilla.name)
+    stuff.append(oatmeal_rasin.name)
+    
     print("\n".join(stuff))
-    print(f"Total number of items in order: {len(stuff)}")
+    return f"Total number of items in order: {len(stuff)}"
 
-"""
-stuff = []
-while True:
+print(main())
+print()
+
+"""while True:
     order = input("What would you like to order? (Type: 'cookie', 'candy', 'icecream', or 'sundae')\n")
     if order == "cookie":
         print(f"We have {chocolate_chip.name} and {oatmeal_rasin.name} cookies.\n")
@@ -75,11 +90,17 @@ while True:
         if cookie == "nevermind":
             continue
     if order == "candy":
-        print(f"We have {candy_corn.name} and {gummy_bear.name}s.")
-        candy = input("What candy would you like? (Type: 'corn' or 'bear' or 'nevermind')\n")
-        if candy == "corn":
-            print("Here's your candy corn.")
-            stuff.append(candy_corn.name)
-        if candy == 
+        print(f"We have {gummy_bear.name} and {candy_corn.name} candy.\n")
+        cookie = input("What cookie would you like? (Type: 'oatmeal' or 'chocolate' or 'nevermind')\n")
+        if cookie == 'oatmeal':
+            print("Here's your oatmeal cookie.")
+            stuff.append(oatmeal_rasin.name)
+        if cookie == 'chocolate':
+            print("Here's your chocolate chip cookie.")
+            stuff.append(chocolate_chip.name)
+        if cookie == "nevermind":
+    if order == "icecream":
+    if order == "sundae":
+        
+    """
 
-"""
