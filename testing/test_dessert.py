@@ -8,14 +8,42 @@ def test_candy_init():
     assert weight == 3.5
     price = candy.get_price_per_pound()
     assert price == 1.5
-    cost = candy.candy_weight * candy.price_per_pound
-    assert candy.calculate_cost() == cost
-    tax = candy.calculate_cost() * (7.25/100)
-    assert candy.calculate_tax == tax
 
 def test_tax_percent():
     candy1 = Candy("Chocolate", 3.5, 1.5)
     assert candy1.tax_percent == 7.25
+
+def test_calculate_cost():
+    candy = Candy("Chocolate", 3.5, 1.5)
+    cost = candy.get_candy_weight() * candy.get_price_per_pound()
+    assert candy.calculate_cost() == cost
+    cookie = Cookie("Chocolate chip", 12, 15.60)
+    cost = cookie.get_cookie_quantity() * (cookie.get_price_per_dozen()/12)
+    assert cookie.calculate_cost() == cost
+    icecream = IceCream("Vanilla", 2, 2.99)
+    cost = icecream.get_scoop_count() * icecream.get_price_per_scoop()
+    assert icecream.calculate_cost() == cost
+    sundae = Sundae("Rocky Road", 2, 3.11, "Cherry", 1.00)
+    cost = sundae.get_scoop_count() * sundae.get_price_per_scoop() + sundae.get_topping_price()
+    assert sundae.calculate_cost() == cost
+
+def test_calculate_tax():
+    candy = Candy("Chocolate", 3.5, 1.5)
+    tax = candy.calculate_cost() * (7.25/100)
+    assert candy.calculate_tax() == tax
+
+    cookie = Cookie("Chocolate chip", 12, 15.60)
+    tax = cookie.calculate_cost() * (7.25/100)
+    assert cookie.calculate_tax() == tax
+
+    icecream = IceCream("Vanilla", 2, 2.99)
+    tax = icecream.calculate_cost() * (7.25/100)
+    assert icecream.calculate_tax() == tax
+
+
+    sundae = Sundae("Rocky Road", 2, 3.11, "Cherry", 1.00)
+    tax = sundae.calculate_cost() * (7.25/100)
+    assert sundae.calculate_tax() == tax
 
 def test_cookie_init():
     cookie = Cookie("Chocolate chip", 12, 15.60)
@@ -25,11 +53,6 @@ def test_cookie_init():
     assert quant == 12
     price = cookie.get_price_per_dozen()
     assert price == 15.60
-    cost = cookie.cookie_quantity * (cookie.price_per_dozen/12)
-    assert cookie.calculate_cost() == cost
-    tax = cookie.calculate_cost() * (7.25/100)
-    assert cookie.calculate_tax == tax   
-
 
 def test_iceCream_init():
     icecream = IceCream("Vanilla", 2, 2.99)
@@ -39,10 +62,6 @@ def test_iceCream_init():
     assert count == 2
     price = icecream.get_price_per_scoop()
     assert price == 2.99
-    cost = icecream.scoop_count * icecream.price_per_scoop
-    assert icecream.calculate_cost() == cost
-    tax = icecream.calculate_cost() * (7.25/100)
-    assert icecream.calculate_tax == tax
 
 def test_sundae_init():
     sundae = Sundae("Rocky Road", 2, 3.11, "Cherry", 1.00)
@@ -56,7 +75,3 @@ def test_sundae_init():
     assert topping == "Cherry"
     topping_price = sundae.get_topping_price()
     assert topping_price == 1.00
-    cost = sundae.scoop_count * sundae.price_per_scoop + sundae.topping_price
-    assert sundae.calculate_cost() == cost
-    tax = sundae.calculate_cost() * (7.25/100)
-    assert sundae.calculate_tax == tax
