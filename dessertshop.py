@@ -20,7 +20,7 @@ class Order():
             tax += item.calculate_cost() * (item.tax_percent/100)
         return tax
 
-class DesertShop():
+class DessertShop():
     def user_prompt_candy(self):
         print("Type in the name of the candy (str), the weight in pounds (flt), and the price per pound (flt)")
         while True:
@@ -141,22 +141,54 @@ class DesertShop():
 
 
 def main(Order):
-    order1 = Order()
-    order1.add(Candy("Candy Corn", 1.5, .25))
-    print("Candy Corn")
-    order1.add(Candy("Gummy Bears", .25, .35))
-    print("Gummy Bears")
-    order1.add(Cookie("Chocolate Chip", 6, 3.99))
-    print("Chocolate Chip")
-    order1.add(IceCream("Pistachio", 2, .79))
-    print("Pistachio")
-    order1.add(Sundae("Vanilla", 3, .69, "Hot Fudge", 1.29))
-    print("Vanilla")
-    order1.add(Cookie("Oatmeal Raisin", 2, 3.45))
-    print("Oatmeal Raisin")
-    print(f"Total number of items in order: {order1.__len__()}")
+    shop = DessertShop()
+    order = Order()
+    '''
+    order.add(Candy('Candy Corn', 1.5, 0.25))
+    order.add(Candy('Gummy Bears', 0.25, 0.35))
+    order.add(Cookie('Chocolate Chip', 6, 3.99))
+    order.add(IceCream('Pistachio', 2, 0.79))
+    order.add(Sundae('Vanilla', 3, 0.69, 'Hot Fudge', 1.29))
+    order.add(Cookie('Oatmeal Raisin', 2, 3.45))
+    '''
+    # boolean done = false
+    done: bool = False
+    # build the prompt string once
+    prompt = '\n'.join([ '\n',
+        '1: Candy',
+        '2: Cookie',
+        '3: Ice Cream',
+        '4: Sunday',
+        '\nWhat would you like to add to the order? (1-4, Enter for done): '
+    ])
+
+    while not done:
+        choice = input(prompt)
+        match choice:
+            case '':
+                done = True
+            case '1':
+                item = shop.user_prompt_candy()
+                order.add(item)
+                print(f'{item.name} has been added to your order.')
+            case '2':
+                item = shop.user_prompt_cookie()
+                order.add(item)
+                print(f'{item.name} has been added to your order.')
+            case '3':
+                item = shop.user_prompt_icecream()
+                order.add(item)
+                print(f'{item.name} has been added to your order.')
+            case '4':
+                item = shop.user_prompt_sundae()
+                order.add(item)
+                print(f'{item.name} has been added to your order.')
+            case _:
+                print('Invalid response: Please enter a choice from the menu (1-4) or Enter')
+        print()
+
     data = []
-    for item in order1.order:
+    for item in order.order:
         if isinstance(item, Candy):
             data.append([item.name, item.candy_weight, item.price_per_pound])
         elif isinstance(item, Cookie):
@@ -165,13 +197,11 @@ def main(Order):
             data.append([item.name, item.scoop_count, item.price_per_scoop])
         elif isinstance(item, Sundae):
             data.append([item.name, item.scoop_count, item.price_per_scoop, item.topping_name, item.topping_price])
-    data.append(["Order Subtotals", "$"+str(round(order1.order_cost(), 2)), "$" + str(round(order1.order_tax(), 2))])
-    data.append(["Total", "", "$" + str(round(order1.order_cost() + order1.order_tax(), 2))])
-    data.append(["Total items in the order", "", str(order1.__len__())])
+    data.append(["Order Subtotals", "$"+str(round(order.order_cost(), 2)), "$" + str(round(order.order_tax(), 2))])
+    data.append(["Total", "", "$" + str(round(order.order_cost() + order.order_tax(), 2))])
+    data.append(["Total items in the order", "", str(order.__len__())])
     import receipt
     receipt.make_receipt(data, "receipt.pdf")
     print(data)
 
-
 main(Order)
-
